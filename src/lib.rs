@@ -3,10 +3,11 @@ use serde::{Deserialize, Serialize};
 /// The internal payload of our license token.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct LicensePayload {
-    pub points_enabled: bool,
     pub lines_enabled: bool,
     pub vectors_enabled: bool,
     pub allowed_points_regex: Option<String>,
+    pub allowed_traces_regex: Option<String>,
+    pub allowed_graphs_regex: Option<String>,
     
     // Cryptographic Decoding: These values are only valid if the license is verified.
     // If someone bypasses the check, these remain default/garbage.
@@ -20,10 +21,11 @@ pub struct LicensePayload {
 impl Default for LicensePayload {
     fn default() -> Self {
         Self {
-            points_enabled: false,
             lines_enabled: false,
             vectors_enabled: false,
             allowed_points_regex: None,
+            allowed_traces_regex: None,
+            allowed_graphs_regex: None,
             vector_scale_factor: 0.0, // Invalid scale 
             default_point_size: 0.0, // Invalid size
             issued_at: 0,
